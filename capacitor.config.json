@@ -1,0 +1,10 @@
+{
+  "appId": "com.simpleai.noor",
+  "appName": "Noor",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#071610",
+    "scrollEnabled": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "noor-islamic-social-ios",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Noor Islamic social feed iOS prototype",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "ios:add": "npm run build && npx cap add ios",
+    "ios:sync": "npm run build && npx cap sync ios",
+    "ios:open": "npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.0",
+    "@capacitor/ios": "^7.4.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.0"
+  }
+}

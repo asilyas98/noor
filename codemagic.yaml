@@ -1,0 +1,41 @@
+workflows:
+  noor-ios-appstore:
+    name: Noor — App Store IPA
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      node: '22'
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.simpleai.noor
+      vars:
+        XCODE_WORKSPACE: ios/App/App.xcworkspace
+        XCODE_SCHEME: App
+    scripts:
+      - name: Install dependencies
+        script: npm install --no-audit --no-fund
+      - name: Validate Noor web app
+        script: npm run build
+      - name: Generate iOS native project
+        script: |
+          if [ ! -d ios/App ]; then npx cap add ios; fi
+          npx cap sync ios
+          node scripts/setup-icon.mjs
+      - name: Apply App Store signing profiles
+        script: xcode-project use-profiles
+      - name: Set build number
+        script: |
+          cd ios/App
+          agvtool new-version -all "${BUILD_NUMBER:-1}"
+      - name: Build signed IPA
+        script: |
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - ios/App/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
