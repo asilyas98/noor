@@ -41,10 +41,10 @@ workflows:
       - ios/App/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-publishing:
-  app_store_connect:
-    api_key: $APP_STORE_CONNECT_PRIVATE_KEY
-    key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
-    issuer_id: $APP_STORE_CONNECT_ISSUER_ID
-    submit_to_testflight: false
-    submit_to_app_store: false
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: false
+        submit_to_app_store: false
